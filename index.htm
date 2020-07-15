@@ -18,6 +18,9 @@
     sprite.anchor.x = 0.5;
     sprite.anchor.y = 0.5;
     app.stage.addChild(sprite); 
+    app.ticker.add(() => {
+        sprite.rotation += 0.1;
+    });
 </script>
 
 </html>
