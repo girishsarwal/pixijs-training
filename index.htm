@@ -23,7 +23,7 @@
     const stage = new PIXI.Container();
     const ticker = new PIXI.Ticker();
     
-    const texture = PIXI.Texture.from('images/download.png');
+    const texture = PIXI.Texture.from('images/small.png');
     const sprite = new PIXI.Sprite(texture);
     
     sprite.x = renderer.width / 2;
@@ -32,10 +32,18 @@
     sprite.anchor.y = 0.5;
     
     stage.addChild(sprite); 
-    
     ticker.add(() => {
         sprite.rotation += 0.01;
         renderer.render(stage);
+    });
+    document.addEventListener('wheel', (event) => {
+        if(sprite.scale.x < 1 || sprite.scale.y < 1) { 
+            sprite.scale.x = 1;
+            sprite.scale.y = 1;
+            return;
+        }
+        sprite.scale.x-=(event.deltaY/1000);
+        sprite.scale.y-=(event.deltaY/1000);
     });
     ticker.start();
 </script>
