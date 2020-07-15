@@ -12,6 +12,11 @@
      *
      */ 
 
+    const zoomDefines= {
+        1: "small.png",
+        2: "medium.png", 
+        3: "large.png"
+    };
 
     const c = document.getElementById('renderTarget');
     const renderer = new PIXI.Renderer({
@@ -24,6 +29,7 @@
     const ticker = new PIXI.Ticker();
     
     const texture = PIXI.Texture.from('images/small.png');
+    const textureMedium = PIXI.Texture.from('images/medium.png');
     const sprite = new PIXI.Sprite(texture);
     
     sprite.x = renderer.width / 2;
@@ -41,6 +47,11 @@
             sprite.scale.x = 1;
             sprite.scale.y = 1;
             return;
+        }
+        if(sprite.scale.x > 8) {
+            sprite.scale.x = 1;
+            sprite.scale.y = 1;
+            sprite.texture = textureMedium;
         }
         sprite.scale.x-=(event.deltaY/1000);
         sprite.scale.y-=(event.deltaY/1000);
