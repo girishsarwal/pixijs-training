@@ -22,14 +22,11 @@
     const stage = new PIXI.Container();
     const ticker = new PIXI.Ticker();
     
-    const textureLarge = PIXI.Texture.from('images/large.png');
+    const textureLarge = PIXI.Texture.from('https://picsum.photos/200/300');
     const spriteLarge = new PIXI.Sprite(textureLarge);
 
     const graphics = new PIXI.Graphics();
 
-    graphics.beginFill(0xFFFFFF);
-    graphics.drawRect(-100, -100, 200, 200);
-    graphics.endFill();
     
     spriteLarge.x = renderer.width / 2;
     spriteLarge.y = renderer.height / 2;
@@ -37,7 +34,6 @@
     graphics.y = renderer.height/2;
     spriteLarge.anchor.x = 0.5;
     spriteLarge.anchor.y = 0.5;
-    spriteLarge.mask = graphics;
     
     stage.addChild(spriteLarge); 
     stage.addChild(graphics);
