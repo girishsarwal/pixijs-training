@@ -12,12 +12,6 @@
      *
      */ 
 
-    const zoomDefines= {
-        1: "small.png",
-        2: "medium.png", 
-        3: "large.png"
-    };
-
     const c = document.getElementById('renderTarget');
     const renderer = new PIXI.Renderer({
         view: c,
@@ -28,39 +22,29 @@
     const stage = new PIXI.Container();
     const ticker = new PIXI.Ticker();
     
-    const texture = PIXI.Texture.from('images/small.png');
-    const textureMedium = PIXI.Texture.from('images/medium.png');
-    const sprite = new PIXI.Sprite(texture);
-    
-    sprite.x = renderer.width / 2;
-    sprite.y = renderer.height / 2;
-    sprite.anchor.x = 0.5;
-    sprite.anchor.y = 0.5;
-    sprite.tint = 0x00FF00;
-    stage.addChild(sprite); 
-    stage.interactive = true;
-    stage.on("pointermove", (e) => {
-        sprite.x = e.data.global.x;
-        sprite.y = e.data.global.y;
-    }); 
-    ticker.add(() => {
-        sprite.rotation += 0.01;
-        renderer.render(stage);
-    });
+    const textureLarge = PIXI.Texture.from('images/large.png');
+    const spriteLarge = new PIXI.Sprite(textureLarge);
 
-    document.addEventListener('wheel', (event) => {
-        if(sprite.scale.x < 1 || sprite.scale.y < 1) { 
-            sprite.scale.x = 1;
-            sprite.scale.y = 1;
-            return;
-        }
-        if(sprite.scale.x > 8) {
-            sprite.scale.x = 1;
-            sprite.scale.y = 1;
-            sprite.texture = textureMedium;
-        }
-        sprite.scale.x-=(event.deltaY/1000);
-        sprite.scale.y-=(event.deltaY/1000);
+    const graphics = new PIXI.Graphics();
+
+    graphics.beginFill(0xFFFFFF);
+    graphics.drawRect(-100, -100, 200, 200);
+    graphics.endFill();
+    
+    spriteLarge.x = renderer.width / 2;
+    spriteLarge.y = renderer.height / 2;
+    graphics.x = renderer.width /2;
+    graphics.y = renderer.height/2;
+    spriteLarge.anchor.x = 0.5;
+    spriteLarge.anchor.y = 0.5;
+    spriteLarge.mask = graphics;
+    
+    stage.addChild(spriteLarge); 
+    stage.addChild(graphics);
+    stage.interactive = true;
+    ticker.add(() => {
+        spriteLarge.rotation += 0.01;
+        renderer.render(stage);
     });
     ticker.start();
 </script>
